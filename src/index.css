@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom animations for the eko logo */
+@keyframes gradient {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes glitch-1 {
+  0%, 100% {
+    clip-path: inset(0 0 0 0);
+    transform: translate(0);
+  }
+  20% {
+    clip-path: inset(20% 0 30% 0);
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    clip-path: inset(50% 0 20% 0);
+    transform: translate(2px, -2px);
+  }
+  60% {
+    clip-path: inset(10% 0 60% 0);
+    transform: translate(-1px, 1px);
+  }
+}
+
+@keyframes glitch-2 {
+  0%, 100% {
+    clip-path: inset(0 0 0 0);
+    transform: translate(0);
+  }
+  30% {
+    clip-path: inset(40% 0 20% 0);
+    transform: translate(2px, -1px);
+  }
+  50% {
+    clip-path: inset(20% 0 50% 0);
+    transform: translate(-2px, 2px);
+  }
+  70% {
+    clip-path: inset(60% 0 10% 0);
+    transform: translate(1px, -2px);
+  }
+}
+
+/* Utility classes */
+.animate-gradient {
+  animation: gradient 3s ease infinite;
+}
+
+.bg-300\% {
+  background-size: 300% 300%;
+}
+
+.animate-glitch-1 {
+  animation: glitch-1 2s infinite;
+}
+
+.animate-glitch-2 {
+  animation: glitch-2 2s infinite reverse;
+}
+
+.animation-delay-200 {
+  animation-delay: 200ms;
+}
+
+.animation-delay-400 {
+  animation-delay: 400ms;
+}
+
+.delay-75 {
+  animation-delay: 75ms;
+}
+
+.delay-100 {
+  animation-delay: 100ms;
+}
+
+.delay-150 {
+  animation-delay: 150ms;
+}
+
+.delay-200 {
+  animation-delay: 200ms;
+}
+
+.delay-300 {
+  animation-delay: 300ms;
+}
+
+.delay-500 {
+  animation-delay: 500ms;
+}
