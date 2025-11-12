@@ -19,8 +19,11 @@ const App = () => {
   
 
 
+  const API_KEY = import.meta.env.VITE_LASTFM_KEY;
+  const USERNAME = 'ronbmz';
+
   const { topTracks, loading, error, fetchTopTracks, getTrackImage } =
-    useTopTracks(import.meta.env.VITE_LASTFM_KEY, 'ronbmz');
+    useTopTracks(API_KEY, USERNAME);
 
   return (
     <div className="min-h-screen bg-black text-white p-8">
@@ -38,7 +41,14 @@ const App = () => {
         {loading && <LoadingState />}
         {error && <ErrorMessage error={error} />}
         {!loading && !error && topTracks.length > 0 && (
-          <TrackList topTracks={topTracks} getTrackImage={getTrackImage} />
+          <TrackList
+            topTracks={topTracks}
+            getTrackImage={getTrackImage}
+            apiKey={API_KEY}
+            username={USERNAME}
+            startDate={startDate}
+            endDate={endDate}
+          />
         )}
         {!loading && !error && topTracks.length === 0 && (
           <EmptyTracksMessage hasDates={startDate && endDate} />
