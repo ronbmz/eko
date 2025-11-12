@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Music, Grid3x3, List, ChevronDown, ChevronUp } from 'lucide-react';
+import { Music, Grid3x3, List, ChevronDown, ChevronUp, Heart } from 'lucide-react';
 import { useTrackPlayHistory } from '../hooks/useTrackPlayHistory';
 import PlayHistoryGraph from './PlayHistoryGraph';
 
-const TrackList = ({ topTracks, getTrackImage, apiKey, username, startDate, endDate }) => {
+const TrackList = ({ topTracks, getTrackImage, apiKey, username, startDate, endDate, toggleFavorite, isFavorite }) => {
   const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'list'
   const [expandedTrackKey, setExpandedTrackKey] = useState(null);
 
@@ -31,6 +31,12 @@ const TrackList = ({ topTracks, getTrackImage, apiKey, username, startDate, endD
       // Fetch play history for this track
       fetchTrackHistory(track.name, artistName, startDate, endDate);
     }
+  };
+
+  // Handle favorite button click
+  const handleFavoriteClick = (e, track, imageUrl) => {
+    e.stopPropagation(); // Prevent track expansion when clicking favorite button
+    toggleFavorite(track, imageUrl);
   };
 
   return (
@@ -91,6 +97,18 @@ const TrackList = ({ topTracks, getTrackImage, apiKey, username, startDate, endD
                   <div className="absolute top-2 right-2 z-10 w-8 h-8 bg-purple-600/90 backdrop-blur rounded-full flex items-center justify-center font-bold text-sm">
                     {index + 1}
                   </div>
+
+                  {/* Favorite Button */}
+                  <button
+                    onClick={(e) => handleFavoriteClick(e, track, imageUrl)}
+                    className="absolute top-2 right-12 z-10 w-8 h-8 bg-zinc-800/90 backdrop-blur rounded-full flex items-center justify-center hover:bg-zinc-700/90 transition-colors"
+                    title={isFavorite(track) ? "Remove from favorites" : "Add to favorites"}
+                  >
+                    <Heart
+                      size={18}
+                      className={isFavorite(track) ? "fill-red-500 text-red-500" : "text-gray-400"}
+                    />
+                  </button>
 
                   {/* Expand/Collapse Icon */}
                   <div className="absolute top-2 left-2 z-10 w-8 h-8 bg-zinc-800/90 backdrop-blur rounded-full flex items-center justify-center">
@@ -203,6 +221,18 @@ const TrackList = ({ topTracks, getTrackImage, apiKey, username, startDate, endD
                       </div>
                       <div className="text-xs text-gray-500">plays</div>
                     </div>
+
+                    {/* Favorite Button */}
+                    <button
+                      onClick={(e) => handleFavoriteClick(e, track, imageUrl)}
+                      className="flex-shrink-0 p-2 hover:bg-zinc-800 rounded-lg transition-colors"
+                      title={isFavorite(track) ? "Remove from favorites" : "Add to favorites"}
+                    >
+                      <Heart
+                        size={20}
+                        className={isFavorite(track) ? "fill-red-500 text-red-500" : "text-gray-400"}
+                      />
+                    </button>
 
                     {/* Expand/Collapse Icon */}
                     <div className="flex-shrink-0">
